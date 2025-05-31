@@ -29,8 +29,8 @@ export class SceneTwo extends Phaser.Scene {
     this.card3Back = null;
     this.card8 = null;
     this.card8Back = null;
-    this.card9 = null;
-    this.card9Back = null;
+   this.card9 = null;
+   this.card9Back = null;
     this.card10 = null;
     this.card10Back = null;
     this.cardJ = null;
@@ -209,10 +209,10 @@ export class SceneTwo extends Phaser.Scene {
       case '2': return this.card2;
       case '3': return this.card3;
       case '8': return card8Back;
-      case '9': return card9;
-      case '10': return card10;
+      case '9': return this.card9;
+      case '10': return this.card10;
       case 'j': return this.cardJ;
-      case 'q': return cardQ;
+      case 'q': return this.cardQ;
       default:
         console.warn('getNextFlowCard: Invalid card ID:', currentCardId);
         return null;
@@ -390,8 +390,8 @@ export class SceneTwo extends Phaser.Scene {
   disappearCardsAndTalon(scene) {
     const allCards = [
       cardA, cardABack, this.card2, this.card2Back, this.card3, this.card3Back,
-      card8, card8Back, card9, card9Back, card10, card10Back,
-      this.cardJ, this.cardJBack, cardQ, cardQBack, cardK
+      card8, card8Back, this.card9, this.card9Back, this.card10, this.card10Back,
+      this.cardJ, this.cardJBack, this.cardQ, this.cardQBack, cardK
     ].filter(Boolean);
     scene.tweens.add({
       targets: [...allCards, talonBase, messageBox].filter(Boolean),
@@ -770,10 +770,10 @@ export class SceneTwo extends Phaser.Scene {
       case '2': card = this.card2; cardBack = this.card2Back; break;
       case '3': card = this.card3; cardBack = this.card3Back; break;
       case '8': card = card8; cardBack = card8Back; break;
-      case '9': card = card9; cardBack = card9Back; break;
-      case '10': card = card10; cardBack = card10Back; break;
+      case '9': card = this.card9; cardBack = this.card9Back; break;
+      case '10': card = this.card10; cardBack = this.card10Back; break;
       case 'j': card = this.cardJ; cardBack = this.cardJBack; break;
-      case 'q': card = cardQ; cardBack = cardQBack; break;
+      case 'q': card = this.cardQ; cardBack = this.cardQBack; break;
     }
     if (!card || !card.scene || card.destroyed) {
       console.warn(`enableCardTap: Invalid card for ${currentCard}`);
@@ -838,8 +838,8 @@ export class SceneTwo extends Phaser.Scene {
             flipCard(scene, this.card2, this.card2Back);
             flipCard(scene, this.card3, this.card3Back);
           } else if (currentCard === '3') {
-            flipCard(scene, card9, card9Back);
-            flipCard(scene, card10, card10Back);
+            flipCard(scene, this.card9, this.card9Back);
+            flipCard(scene, this.card10, this.card10Back);
           } else if (currentCard === '10') {
             const jDepth = maxDepth + 2;
             maxDepth += 4;
@@ -849,9 +849,9 @@ export class SceneTwo extends Phaser.Scene {
           } else if (currentCard === 'j') {
             const qDepth = maxDepth + 2;
             maxDepth += 4;
-            cardQ.setDepth(qDepth);
-            if (cardQBack) cardQBack.setDepth(qDepth + 1);
-            flipCard(scene, cardQ, cardQBack, qDepth);
+            this.cardQ.setDepth(qDepth);
+            if (this.cardQBack) this.cardQBack.setDepth(qDepth + 1);
+            flipCard(scene, this.cardQ, this.cardQBack, qDepth);
           }
           completedCards.push(card);
           currentTapIndex++;
@@ -912,8 +912,8 @@ export class SceneTwo extends Phaser.Scene {
             flipCard(scene, this.card2, this.card2Back);
             flipCard(scene, this.card3, this.card3Back);
           } else if (currentCard === '3') {
-            flipCard(scene, card9, card9Back);
-            flipCard(scene, card10, card10Back);
+            flipCard(scene, this.card9, this.card9Back);
+            flipCard(scene, this.card10, this.card10Back);
           } else if (currentCard === '10') {
             const jDepth = maxDepth + 2;
             maxDepth += 4;
@@ -923,9 +923,9 @@ export class SceneTwo extends Phaser.Scene {
           } else if (currentCard === 'j') {
             const qDepth = maxDepth + 2;
             maxDepth += 4;
-            cardQ.setDepth(qDepth);
-            if (cardQBack) cardQBack.setDepth(qDepth + 1);
-            flipCard(scene, cardQ, cardQBack, qDepth);
+            this.cardQ.setDepth(qDepth);
+            if (this.cardQBack) this.cardQBack.setDepth(qDepth + 1);
+            flipCard(scene, this.cardQ, this.cardQBack, qDepth);
           }
           completedCards.push(card);
           currentTapIndex++;
@@ -1023,7 +1023,7 @@ export class SceneTwo extends Phaser.Scene {
       const card2FinalX = 340;
       const card3FinalX = 740;
       const cardJFinalX = 441;
-      const cardQFinalX = 639;
+      const this.cardQFinalX = 639;
   
       this.card2 = this.add.image(this.card2FinalX, initialY, 'card-2').setOrigin(0.5).setAngle(45).setScale(0.7).setDepth(this.maxDepth++).setVisible(false);
       this.card2Back = this.add.image(this.card2FinalX, initialY, 'card-back').setOrigin(0.5).setAngle(45).setScale(0.7).setDepth(this.maxDepth++);
@@ -1034,8 +1034,8 @@ export class SceneTwo extends Phaser.Scene {
       this.card8 = this.add.image(540, initialY, 'card-8').setOrigin(0.5).setScale(0.7).setDepth(this.maxDepth++).setVisible(false);
       this.card8Back = this.add.image(540, initialY, 'card-back').setOrigin(0.5).setScale(0.7).setDepth(this.maxDepth++);
   
-      this.card9 = this.add.image(540, initialY, 'card-9').setOrigin(0.5).setScale(0.7).setDepth(this.maxDepth++).setVisible(false);
-      this.card9Back = this.add.image(540, initialY, 'card-back').setOrigin(0.5).setScale(0.7).setDepth(this.maxDepth++);
+     this.card9 = this.add.image(540, initialY, 'card-9').setOrigin(0.5).setScale(0.7).setDepth(this.maxDepth++).setVisible(false);
+     this.card9Back = this.add.image(540, initialY, 'card-back').setOrigin(0.5).setScale(0.7).setDepth(this.maxDepth++);
   
       this.card10 = this.add.image(540, initialY, 'card-10').setOrigin(0.5).setScale(0.7).setDepth(this.maxDepth++).setVisible(false);
       this.card10Back = this.add.image(540, initialY, 'card-back').setOrigin(0.5).setScale(0.7).setDepth(this.maxDepth++);
@@ -1043,8 +1043,8 @@ export class SceneTwo extends Phaser.Scene {
       this.cardJ = this.add.image(cardJFinalX, initialY, 'card-j').setOrigin(0.5).setAngle(22).setScale(0.7).setDepth(this.card10.depth - 1).setVisible(false);
       this.cardJBack = this.add.image(cardJFinalX, initialY, 'card-back').setOrigin(0.5).setAngle(22).setScale(0.7).setDepth(this.card10.depth - 1);
   
-      this.cardQ = this.add.image(cardQFinalX, initialY, 'card-Q').setOrigin(0.5).setAngle(337).setScale(0.7).setDepth(this.cardJ.depth - 1).setVisible(false);
-      this.cardQBack = this.add.image(cardQFinalX, initialY, 'card-back').setOrigin(0.5).setAngle(337).setScale(0.7).setDepth(this.cardJ.depth - 1);
+      this.cardQ = this.add.image(this.cardQFinalX, initialY, 'card-Q').setOrigin(0.5).setAngle(337).setScale(0.7).setDepth(this.cardJ.depth - 1).setVisible(false);
+      this.cardQBack = this.add.image(this.cardQFinalX, initialY, 'card-back').setOrigin(0.5).setAngle(337).setScale(0.7).setDepth(this.cardJ.depth - 1);
   
       this.cardA = this.add.image(540, initialY, 'card-A').setOrigin(0.5).setScale(0.7).setDepth(this.maxDepth++).setVisible(true);
       this.cardABack = this.add.image(540, initialY, 'card-back').setOrigin(0.5).setScale(0.7).setDepth(this.maxDepth++);
@@ -1053,7 +1053,7 @@ export class SceneTwo extends Phaser.Scene {
       
    
   
-      const cardFaces = [this.cardA, this.card2, this.card3, this.card8, this.card9, this.card10, this.cardJ, this.cardQ];
+      const cardFaces = [this.cardA, this.card2, this.card3, this.card8,this.card9, this.card10, this.cardJ, this.cardQ];
       const cardIdMap = {
         'card-A': 'A',
         'card-2': '2',
@@ -1093,10 +1093,10 @@ export class SceneTwo extends Phaser.Scene {
         delay: 400
       });
       this.tweens.add({
-        targets: [this.cardJ, this.cardJBack, cardQ, cardQBack],
+        targets: [this.cardJ, this.cardJBack, this.cardQ, this.cardQBack],
         angle: (target) => {
           if (target === this.cardJ || target === this.cardJBack) return 45;
-          if (target === cardQ || target === cardQBack) return -45;
+          if (target === this.cardQ || target === this.cardQBack) return -45;
           return target.angle;
         },
         duration: 300,
@@ -1104,29 +1104,29 @@ export class SceneTwo extends Phaser.Scene {
         delay: 400
       });
       this.tweens.add({
-        targets: [this.card2, this.card2Back, this.card3, this.card3Back, this.cardJ, this.cardJBack, cardQ, cardQBack],
+        targets: [this.card2, this.card2Back, this.card3, this.card3Back, this.cardJ, this.cardJBack, this.cardQ, this.cardQBack],
         x: (target) => {
           if (target === this.card2 || target === this.card2Back) return this.card2FinalX;
           if (target === this.card3 || target === this.card3Back) return this.card3FinalX;
           if (target === this.cardJ || target === this.cardJBack) return this.cardJFinalX;
-          if (target === cardQ || target === cardQBack) return cardQFinalX;
+          if (target === this.cardQ || target === this.cardQBack) return this.cardQFinalX;
           return target.x;
         },
         y: (target) => {
           if (target === this.card2 || target === this.card2Back) return 680;
           if (target === this.card3 || target === this.card3Back) return 680;
           if (target === this.cardJ || target === this.cardJBack) return 997;
-          if (target === cardQ || target === cardQBack) return 997;
+          if (target === this.cardQ || target === this.cardQBack) return 997;
           return target.y;
         },
         duration: 300,
         ease: 'Power1',
         onComplete: () => {
           this.tweens.add({
-            targets: [cardA, cardABack, card8, card8Back, card9, card9Back, card10, card10Back, cardK],
+            targets: [cardA, cardABack, card8, card8Back, this.card9, this.card9Back, this.card10, this.card10Back, cardK],
             y: (target) => {
-              if (target === card9 || target === card9Back) return 460;
-              if (target === card10 || target === card10Back) return 850;
+              if (target === this.card9 || target === this.card9Back) return 460;
+              if (target === this.card10 || target === this.card10Back) return 850;
               if (target === cardA || target === cardABack) return 660;
               if (target === card8 || target === card8Back) return 1700;
               if (target === cardK) return 1700;
